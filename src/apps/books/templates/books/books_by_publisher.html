@@ -1,0 +1,11 @@
+<h2>Books by publisher</h2>
+
+{% if books_list %}
+    <ul>
+        {% for book in books_list %}
+            <li>Title: {{ book.title }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    There are no Books by publisher
+{% endif %}

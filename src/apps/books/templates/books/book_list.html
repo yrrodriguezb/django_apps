@@ -1,0 +1,12 @@
+<h2>Books</h2>
+
+{% if books_list %}
+    <ul>
+    {% for book in books_list %}
+        <li>Title: {{ book.title }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+    There are no books
+{% endif %}
+

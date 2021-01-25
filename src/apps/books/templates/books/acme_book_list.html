@@ -1,0 +1,11 @@
+<h2>ACME Book List</h2>
+
+{% if authors_list %}
+    <ul>
+        {% for book in acme_book_list %}
+            <li>Title: {{ book.title }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    There are no ACME books list
+{% endif %}

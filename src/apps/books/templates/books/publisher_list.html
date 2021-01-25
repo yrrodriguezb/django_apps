@@ -1,0 +1,12 @@
+<h2>Publishers</h2>
+
+{% if publishers %}
+    <ul>
+        {% for publisher in publishers %}
+            <li>Name: {{ publisher.name }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    There are no Publishers
+{% endif %}
+

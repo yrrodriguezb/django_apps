@@ -1,6 +1,6 @@
 # DJANGO APPS
 
-Proyecto de ejemplo para profundizar en la creación de aplicaciónes web con [Django](https://www.djangoproject.com/)
+Proyecto de ejemplo para profundizar en la creación de aplicaciónes web con **[Django](https://www.djangoproject.com/)**
 
 
 ## Configuración Inicial
@@ -45,7 +45,7 @@ Proyecto de ejemplo para profundizar en la creación de aplicaciónes web con [D
 
     # Modo local
 
-    python manage.py runserser
+    python manage.py runserver
 
     # Modo desarrollo
 
@@ -53,10 +53,22 @@ Proyecto de ejemplo para profundizar en la creación de aplicaciónes web con [D
 
     # Modo producción
 
-    python manage.py runserver --settings=django_apps.config.dev    
+    python manage.py runserver --settings=django_apps.config.prod    
     ```
 
-2. Finalmente abrir un navegador en la dirección ***[localhos:8080](http://localhost:8000/)***
+2. Ejecutar las migraciones
 
+    ```bash
+    # Ejecutar la opción migrate
+
+    python manage.py migrate 
+    ```
+
+3. Finalmente abrir un navegador en la dirección **[localhos:8080](http://localhost:8000/)**
+
+
+## Aplicaciones
+
+1. Aplicación Books - **[Introducción Django - Class-based views](https://docs.djangoproject.com/en/3.1/topics/class-based-views/)**
 
     

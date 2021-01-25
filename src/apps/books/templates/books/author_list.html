@@ -1,0 +1,12 @@
+<h2>Authors</h2>
+
+{% if authors_list %}
+    <ul>
+    {% for author in authors_list %}
+        <li>Name: {{ book.name }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+    There are no authors
+{% endif %}
+
