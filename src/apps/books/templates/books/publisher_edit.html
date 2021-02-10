@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="title">Publisher Edit</h1>
+
+  <div class="columns">
+    <div class="column is-two-fifths">
+      <form method="POST">
+        {% csrf_token %}
+
+        <div class="field">
+          <label class="label" for={{ form.name.id_for_label }}>{{ form.name.label }}</label>
+          <div class="control">
+            <input id="{{ form.name.auto_id }}" class="input" type="text" required="required" name="{{ form.name.name }}" value="{{ form.name.value }}"/>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for={{ form.address.id_for_label }}>{{ form.address.label }}</label>
+          <div class="control">
+            <input id="{{ form.address.auto_id }}" class="input" type="text" required="required" name="{{ form.address.name }}" value="{{ form.address.value }}"/>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for={{ form.city.id_for_label }}>{{ form.city.label }}</label>
+          <div class="control">
+            <input id="{{ form.city.auto_id }}" class="input" type="text" required="required" name="{{ form.city.name }}" value="{{ form.city.value }}"/>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for={{ form.state_province.id_for_label }}>{{ form.state_province.label }}</label>
+          <div class="control">
+            <input id="{{ form.state_province.auto_id }}" class="input" type="text" required="required" name="{{ form.state_province.name }}" value="{{ form.state_province.value }}"/>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for={{ form.country.id_for_label }}>{{ form.country.label }}</label>
+          <div class="control">
+            <input id="{{ form.country.auto_id }}" class="input" type="text" required="required" name="{{ form.country.name }}" value="{{ form.country.value }}"/>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for={{ form.website.id_for_label }}>{{ form.website.label }}</label>
+          <div class="control">
+            <input id="{{ form.website.auto_id }}" class="input" type="url" required="required" name="{{ form.website.name }}" value="{{ form.website.value }}"/>
+          </div>
+        </div>
+
+        <div class="buttons">
+          <button class="button is-success">Guardar</button>
+          <a class="button is-link" href="{% url 'books:publishers-list' %}">Regresar</a>
+        </div>
+      </form>
+    </div>
+  </div>  
+{% endblock content %}
