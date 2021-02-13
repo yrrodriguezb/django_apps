@@ -1,9 +1,20 @@
 # DJANGO APPS
 
-Proyecto de ejemplo para profundizar en la creación de aplicaciónes web con **[Django](https://www.djangoproject.com/)**
+Proyecto de ejemplo para profundizar en la creación de aplicaciónes web con **[Django](https://www.djangoproject.com/)** y **[Python 3.8](https://www.python.org/downloads/release/python-386/)**
 
 
 ## Configuración Inicial
+
+### Requisitos para el Sistema Operativo Ubuntu
+
+1. Instalar la siguientes dependencias para **[mysqlclient](https://pypi.org/project/mysqlclient/)**
+    ``` bash
+    sudo apt-get install python-dev default-libmysqlclient-dev
+
+    # and 
+
+    sudo apt-get install python3-dev
+    ```
 
 ### Configuración del entorno virtual
 
