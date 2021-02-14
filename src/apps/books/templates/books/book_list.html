@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% load book_tags %}
+
+{% block title %}Books{% endblock %}
 
 {% block content %}
 	<div class="level">
@@ -6,7 +9,16 @@
 			<h2 class="title">Books</h2>
 		</div>
 		<div class="level-right">
-			<input type="button" class="button  is-white" value="New">
+			<div class="level-item">
+				<div class="tags has-addons">
+					<span class="tag is-primary">Count</span>
+					<span class="tag">{% total_books %} Books</span>
+				</div>
+			</div>
+
+			<div class="level-item">
+				<input type="button" class="button is-white" value="New">
+			</div>
 		</div>
 	</div>
 
@@ -42,7 +54,7 @@
 				{% endfor %}
 			</tbody>
 		</table>
-		</div>
+	</div>
 	{% else %}
 		{% include "includes/components/alert.html" with type="info" title="Information" message="There are no Books" %}
 	{% endif %}
