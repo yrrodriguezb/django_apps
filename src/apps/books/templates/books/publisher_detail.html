@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %}Publisher detail{% endblock %}
+
 {% block content %}
   <div class="level">
     <div class="level-left">
@@ -18,9 +20,9 @@
   <div class="content">Name: {{ publisher.name }}</div>
 
 
-  <h1 class="title">Books List</h1>
+  <h1 class="title">Lastest Books</h1>
 
-  {% if book_list %}
+  {% if latest_books %}
 	<div class="table-container"> 
 		<table class="table is-bordered is-hoverable is-fullwidth">
 			<thead>
@@ -36,7 +38,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% for book in book_list %}
+				{% for book in latest_books %}
 				<tr>
 					<td><a>{{ book.id }}</a></td>
 					<td>{{ book.title }}</td>

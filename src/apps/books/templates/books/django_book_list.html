@@ -1,24 +1,24 @@
 {% extends 'base.html' %}
 {% load book_tags %}
 
-{% block title %}Authors{% endblock %}
+{% block title %}Django Books{% endblock %}
 
 {% block content %}
     <div class="level">
         <div class="level-left is-four-fifths">
-            <h2 class="title">Authors</h2>
+            <h2 class="title">Django Books</h2>
         </div>
     </div>
 
-	{% if authors %}
+	{% if django_book_list %}
 	<div class="table-container"> 
 		<table class="table is-bordered is-hoverable is-fullwidth">
 			<thead>
 				<tr>
 					<th>ID</th>
-					<th>Salutation</th>
-					<th>Name</th>
-					<th>Email</th>
+					<th>Title</th>
+					<th>Publisher</th>
+					<th>Publication Date</th>
 					<th align="center">
 						<span class="icon has-text-danger">
 							<i class="fas fa-trash"></i>
@@ -27,14 +27,12 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% for author in authors %}
+				{% for book in django_book_list %}
 				<tr>
-					<td>
-                        <a href="{% url 'books:author-detail' author.id %}">{{ author.id }}</a>
-                    </td>
-					<td>{{ author.salutation }}</td>
-					<td>{{ author.name }}</td>
-					<td>{{ author.email }}</td>
+					<td><a>{{ book.id }}</a></td>
+					<td>{{ book.title }}</td>
+					<td>{{ book.publisher }}</td>
+					<td>{{ book.publication_date | date:"D d M Y" }}</td>
 					<td align="center">
 						<span class="icon has-text-danger">
 							<i class="fas fa-trash"></i>
@@ -46,7 +44,6 @@
 		</table>
 	</div>
 	{% else %}
-		{% include "includes/components/alert.html" with type="info" title="Information" message="There are no Authors" %}
+		{% include "includes/components/alert.html" with type="info" title="Information" message="There are no Django Books" %}
 	{% endif %}
 {% endblock content %}
-

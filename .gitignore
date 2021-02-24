@@ -18,6 +18,7 @@ pip-delete-this-directory.txt
 *.log
 # settings/prod.py
 db.sqlite3
+db.json
 
 # Environments
 .env

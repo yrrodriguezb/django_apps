@@ -3,6 +3,7 @@ from apps.books.views import (
     AuthorList,
     AuthorDetailView,
     BookList,
+    DjangoBookList,
     PublisherUpdateView,
     PublisherDetail,
     PublisherList, 
@@ -18,5 +19,6 @@ urlpatterns = [
     path('publishers/', PublisherList.as_view(), name='publishers-list'),
     path('publisher/<int:pk>/detail', PublisherDetail.as_view(), name='publisher-detail'),
     path('publisher/<int:pk>/edit', PublisherUpdateView.as_view(), name='publisher-edit'),
-    path('publishers/books/<publisher>/', PublisherBookList.as_view(), name='books-publishers'),
+    path('publishers/books/<publisher>/', PublisherBookList.as_view(), name='book-publishers'),
+    path('django/', DjangoBookList.as_view(), name='django-books'),
 ]

@@ -1,4 +1,25 @@
-<h1>Author</h1>
+{% extends 'base.html' %}
 
-<div>Name: {{ author.name }}</div>
-<div>last accessed: {{ author.last_accessed }}</div>
+{% block title %}Author detail{% endblock %}
+
+{% block content %}
+<div class="level">
+  <div class="level-left">
+    <h1 class="title">Author</h1>
+  </div>
+  <div class="level-right">
+    <div class="level-item">
+      <a href="#" class="button is-white">Edit</a>
+    </div>
+    <div class="level-item">
+      <a href="{% url 'books:authors-list' %}" class="button is-link">Go Back</a>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+  Name: {{ author.name }} <br>
+  Last accessed: {{ author.last_accessed }}
+</div>
+{% endblock %}
+

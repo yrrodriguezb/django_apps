@@ -2,7 +2,6 @@
 
 {% block title %}Publishers{% endblock %}
 
-
 {% block content %}
   <div class="level">
 		<div class="level-left is-four-fifths">
@@ -25,6 +24,7 @@
             <th>State Province</th>
             <th>Country</th>
             <th>Web site</th>
+            <th>Books</th>
             <th align="center">
               <span class="icon has-text-danger">
                 <i class="fas fa-trash"></i>
@@ -45,6 +45,9 @@
             {% if publisher.website %}
             <a href="{{ publisher.website }}" target="_blank">{{ publisher.website }}</a>
             {% endif %}
+            </td>
+            <td>
+              <a href="{% url 'books:book-publishers' publisher.name %}" class="tag is-primary">Books</a>
             </td>
             <td align="center">
               <span class="icon has-text-danger">

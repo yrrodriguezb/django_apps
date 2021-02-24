@@ -4,8 +4,14 @@
     <div class="menu-category">
       <header class="category-header">Books</header>
       <ul class="menu-list">
-        <li><a href="{% url 'books:books-list' %}">Books List</a></li>
+        <li><a href="{% url 'books:books-list' %}">List</a></li>
         <li><a href="{% url 'books:publishers-list' %}">Publishers</a></li>
+      </ul>
+    </div>
+    <div class="menu-category">
+      <header class="category-header">Authors</header>
+      <ul class="menu-list">
+        <li><a href="{% url 'books:authors-list' %}">List</a></li>
       </ul>
     </div>
   </nav>
