@@ -5,10 +5,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# Email
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 # Database
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -19,3 +17,8 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+
+
+# Email
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

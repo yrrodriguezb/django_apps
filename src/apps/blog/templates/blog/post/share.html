@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Share a post{% endblock %}
+
+{% block content %}
+  {% if sent %}
+    {% with post.title|add:" was successfully sent to "|add:form.cleaned_data.to|add:"." as msg %}
+      {% include "includes/components/alert.html" with type="success" title="Success" message="Email sucessfully sent "|add:msg %}
+    {% endwith %}
+  {% else %}
+    <h1 class="title">Share "{{ post.title }}" by e-mail</h1>
+
+    <form method="post">
+      {% csrf_token %}
+
+      <div class="columns">
+        <div class="column">
+          <p class="control">
+            <label class="label">{{ form.name.label_tag }}</label>
+            <input type="text" class="input" name="{{ form.name.name }}" placeholder="Name" />
+          </p>
+        </div>
+        <div class="column">
+          <p class="control">
+            <label class="label">{{ form.email.label_tag }}</label>
+            <input type="email" class="input" name="{{ form.email.name }}" placeholder="E-mail" />
+          </p>
+        </div>
+      </div>
+  
+      <div class="columns">
+        <div class="column">
+          <label class="label">{{ form.to.label_tag }}</label>
+          <input type="text" class="input" name="{{ form.to.name }}" placeholder="To"/>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column">
+          <label class="label">{{ form.comments.label_tag }}</label>
+          <textarea class="textarea" name="{{ form.comments.name }}" placeholder="Comments" ></textarea>
+        </div>
+      </div>
+      
+      <input type="submit" class="button is-link" value="Send e-mail">
+    </form>
+  {% endif %}
+{% endblock %}

@@ -1,6 +1,21 @@
 <aside class="sidebar">
-  <div style="">
+  <div>
     <nav class="menu">
+    {% if app_name != "" %}
+    <div class="menu-category">
+      <a href="{% url 'home' %}" class="button is-link is-small" style="display: inherit;">Go back</a>
+    </div>
+    {% endif %}
+    
+    {% if app_name == "" %}
+    <div class="menu-category">
+      <header class="category-header">Applications</header>
+      <ul class="menu-list">
+        <li><a href="{% url 'books:books-list' %}">Books</a></li>
+        <li><a href="{% url 'blog:post-list' %}">Blog</a></li>
+      </ul>
+    </div>
+    {% elif app_name == "books" %}
     <div class="menu-category">
       <header class="category-header">Books</header>
       <ul class="menu-list">
@@ -14,6 +29,14 @@
         <li><a href="{% url 'books:authors-list' %}">List</a></li>
       </ul>
     </div>
+    {% elif app_name == "blog" %}
+    <div class="menu-category">
+      <header class="category-header">Blog</header>
+      <ul class="menu-list">
+        <li><a href="{% url 'blog:post-list' %}">List</a></li>
+      </ul>
+    </div>
+    {% endif %}
   </nav>
   </div>
 </aside>
