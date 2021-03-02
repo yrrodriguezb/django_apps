@@ -1,0 +1,10 @@
+{% if latest_posts %}
+<div class="menu-category">
+  <header class="category-header">Latest Posts</header>
+  <ul class="menu-list">
+    {% for post in latest_posts %}
+    <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}

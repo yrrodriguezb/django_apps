@@ -1,0 +1,10 @@
+{% if most_commented_posts %}
+<div class="menu-category">
+  <header class="category-header">Most Commented Posts</header>
+  <ul class="menu-list">
+    {% for post in most_commented_posts %}
+    <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
