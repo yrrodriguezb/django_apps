@@ -36,6 +36,7 @@
       <header class="category-header">Blog</header>
       <ul class="menu-list">
         <li><a href="{% url 'blog:post-list' %}">List</a></li>
+        <li><a href="{% url 'blog:post_feed' %}" target="_blank">Subscribe to my RSS feed</a></li>
       </ul>
     </div>
     {% show_latest_posts 3 %}

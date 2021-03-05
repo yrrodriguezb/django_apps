@@ -1,11 +1,17 @@
-<nav class="pagination" role="navigation" aria-label="pagination">
-  {% if page.has_previous %}
-  <a class="pagination-previous" href="?page={{ page.previous_page_number }}">Previous</a>
-  {% endif %}
-  {% if page.has_next %}
-  <a class="pagination-next is-white" href="?page={{ page.next_page_number }}">Next page</a>
-  {% endif %}
-  <span class="current">
-    Page {{ page.number }} of {{ page.paginator.num_pages }}.
-  </span>
-</nav>
+<div class="level">
+  <div class="level-left">
+    <div class="level-item">
+      {% if page.has_previous %}
+      <a class="pagination-previous" href="?page={{ page.previous_page_number }}&query={{query}}">Previous</a>
+      {% endif %}
+      {% if page.has_next %}
+      <a class="pagination-next is-white" href="?page={{ page.next_page_number }}&query={{query}}">Next page</a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="level-right">
+    <div class="level-item">
+      Page {{ page.number }} of {{ page.paginator.num_pages }}.
+    </div>
+  </div>
+</div>

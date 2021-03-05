@@ -1,0 +1,32 @@
+{% load blog_tags %}
+
+<div class="card">
+  <header class="card-header">
+    <p class="card-header-title">
+      {{ post.title }}
+    </p>
+    <a href="{{ post.get_absolute_url }}" class="card-header-icon" aria-label="more options">
+      <span class="icon">
+        <i class="fas fa-edit" aria-hidden="true"></i>
+      </span>
+    </a>
+  </header>
+  <div class="card-content">
+    <div class="content">
+      <p>{{ post.body|markdown|truncatewords_html:30 }}</p>
+      <a href="{{ post.get_absolute_url }}">Ver mas.</a><br>
+      <br>
+      <p datetime="2016-1-1">Published {{ post.publish }} by {{ post.author }}</p>
+    </div>
+  </div>
+  <footer class="card-footer">
+    <div class="card-footer-item">
+      <div class="tags">
+        <div class="tag is-link">Tags</div>
+        {% for tag in post.tags.all %}
+        <a class="tag is-primary" href="{% url 'blog:post_list_by_tag' tag.slug %}">{{ tag.name }}</a>
+        {% endfor %}
+      </div>
+    </div>
+  </footer>
+</div>

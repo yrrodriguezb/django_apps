@@ -1,6 +1,6 @@
 from django.core.mail import send_mail
 from django.core.paginator import  EmptyPage, PageNotAnInteger, Paginator
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.views.generic import ListView
@@ -18,12 +18,18 @@ class PostListView(ListView):
 def post_list(request, tag_slug=None):
     object_list = Post.published.all()
     tag = None
+    query = request.GET.get('query', None)
 
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
         object_list = object_list.filter(tags__in=[tag])
+
+    if query:
+        object_list = object_list.filter(
+            Q(title__contains=query) | Q(body__contains=query)
+        )
     
-    paginator = Paginator(object_list, 10) # 10 posts in each page
+    paginator = Paginator(object_list, 2) # 10 posts in each page
     page = request.GET.get('page')
 
     try:
