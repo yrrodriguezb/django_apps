@@ -1,4 +1,5 @@
 from pathlib import Path
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -28,6 +29,7 @@ INSTALLED_APPS = [
     'apps.core',
     'apps.books',
     'apps.blog',
+    'apps.account',
 ]
 
 MIDDLEWARE = [
@@ -85,8 +87,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'es-co'
-
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -104,3 +104,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'apps' / 'static',
 ]
+
+# auth
+
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = reverse_lazy('account:login')
+LOGOUT_URL = reverse_lazy('account:logout')

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 from os import environ
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'apps.core',
     'apps.books',
     'apps.blog',
+    'apps.account',
 ]
 
 MIDDLEWARE = [
@@ -114,8 +116,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'es-co'
-
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -141,3 +141,9 @@ EMAIL_HOST = 'smtp.mailtrap.io'
 EMAIL_HOST_USER = environ.get("DJANGO_EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = environ.get("DJANGO_EMAIL_HOST_PASSWORD")
 EMAIL_PORT = '2525'
+
+# auth
+
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = reverse_lazy('account:login')
+LOGOUT_URL = reverse_lazy('account:logout')

@@ -19,11 +19,35 @@
     </div>
     <div class="navbar-end">
       <div class="navbar-item">
+        {% if not request.user.is_authenticated%}
         <div class="buttons">
-          <a class="button  is-white">
-            Log in
+          <a class="button is-white" href="{% url 'account:login' %}">
+            <strong>Log in</strong>
+          </a>
+          <a class="button is-white">
+            <strong>Sign up</strong>
           </a>
         </div>
+        {% else %}
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Welcome {{ request.user }}
+          </a>
+  
+          <div class="navbar-dropdown">
+            <a class="navbar-item">
+              Profile
+            </a>
+            <a class="navbar-item" href="{% url 'account:password_change' %}">
+              Password change
+            </a>
+            <hr class="navbar-divider">
+            <a class="navbar-item"  href="{% url 'account:logout' %}">
+              Logout
+            </a>
+          </div>
+        </div>
+        {% endif %}
       </div>
     </div>
   </div>

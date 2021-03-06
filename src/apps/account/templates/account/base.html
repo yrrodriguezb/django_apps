@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/sass/custom_bulma/bulma@custom.0.9.1.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+  <title>{% block title %}Login{% endblock %}</title>
+  <style>
+    .content-left {
+      height: 100vh;
+      background-color: #fffffa;
+      padding: 0px;
+      -webkit-box-shadow: inset -9px 0px 30px -18px rgba(71,71,71,1);
+      -moz-box-shadow: inset -9px 0px 30px -18px rgba(71,71,71,1);
+      box-shadow: inset -9px 0px 30px -18px rgba(71,71,71,1);
+    }
+
+    @media (max-width: 769px) {
+      .content-left {
+        display: none
+      }
+    }
+
+    .input {
+      border-radius: 50px;
+    }
+
+    .button {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      min-width: 150px;
+    }
+
+    .columns{
+      margin: 0px;
+    }
+
+    .is-vertical-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+  </style>
+  {% block extra_styles %}{% endblock %}
+</head>
+<body>
+  {% block content %}
+  {% endblock%}
+</body>
+</html>

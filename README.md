@@ -82,5 +82,6 @@ Proyecto de ejemplo para profundizar en la creación de aplicaciónes web con **
 
 1. Aplicación Books - **[Introducción Django - Class-based views](https://docs.djangoproject.com/en/3.1/topics/class-based-views/)**
 2. Aplicacion Blog
+3. Aplicación Social Website
 
     

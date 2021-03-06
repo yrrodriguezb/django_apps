@@ -1,0 +1,96 @@
+{% extends 'account/base.html' %}
+{% load static %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+<div class="has-background-primary columns is-vcentered">
+  <div class="column is-8 content-left"> 
+    <div class="is-vertical-center">
+      <a class="button is-primary is-outlined" href="{% url 'home' %}">Go back</a>
+    </div>
+  </div>
+  <div class="column is-4">
+    <section class="section">
+      <div class="has-text-centered">
+        <img src="{% static 'images/logos/django.svg' %}" >
+      </div>
+
+      <form action="" method="POST">
+        {% csrf_token %}
+
+        <div class="field">
+          <label class="label">{{ form.username.label_tag }}</label>
+          <div class="control has-icons-right">
+            <input 
+              class="input" 
+              name="{{ form.username.name }}"  
+              type="text" 
+              value="{{ form.username.value|default_if_none:'' }}"
+              placeholder="Username"
+              required
+            />
+            <span class="icon is-small is-right">
+              <i class="fa fa-user"></i>
+            </span>
+          </div>
+        </div>
+
+        div class="field">
+          <label class="label">{{ form.email.label_tag }}</label>
+          <div class="control has-icons-right">
+            <input 
+              class="input" 
+              name="{{ form.email.name }}"  
+              type="email" 
+              value="{{ form.email.value|default_if_none:'' }}"
+              placeholder="Username"
+              required
+            />
+            <span class="icon is-small is-right">
+              <i class="fa fa-email"></i>
+            </span>
+          </div>
+        </div>
+  
+        <div class="field">
+          <label class="label">{{ form.password.label_tag }}</label>
+          <div class="control has-icons-right">
+            <input 
+              class="input" 
+              type="password" 
+              name="{{ form.password.name }}"
+              placeholder="Password"
+              required
+            />
+            <span class="icon is-small is-right">
+              <i class="fa fa-key"></i>
+            </span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">{{ form.confirm_password.label_tag }}</label>
+          <div class="control has-icons-right">
+            <input 
+              class="input" 
+              type="password" 
+              name="{{ form.confirm_password.name }}"
+              placeholder="Confirm password"
+              required
+            />
+            <span class="icon is-small is-right">
+              <i class="fa fa-key"></i>
+            </span>
+          </div>
+        </div>
+        
+        <div class="has-text-centered">
+          <input type="submit" class="button is-vcentered is-white" value="Sign up">
+        </div>
+      </form>
+
+    </section>
+  </div>
+</div>
+{% endblock %}
