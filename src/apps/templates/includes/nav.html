@@ -24,7 +24,7 @@
           <a class="button is-white" href="{% url 'account:login' %}">
             <strong>Log in</strong>
           </a>
-          <a class="button is-white">
+          <a class="button is-white" href="{% url 'account:signup' %}">
             <strong>Sign up</strong>
           </a>
         </div>
@@ -35,14 +35,19 @@
           </a>
   
           <div class="navbar-dropdown">
-            <a class="navbar-item">
+            <a class="navbar-item" href="{% url 'account:edit' %}">
               Profile
             </a>
             <a class="navbar-item" href="{% url 'account:password_change' %}">
               Password change
             </a>
+            {% if request.user.is_staff %}
+            <a class="navbar-item" href="{% url 'admin:index' %}">
+              Administrator
+            </a>
+            {% endif %}
             <hr class="navbar-divider">
-            <a class="navbar-item"  href="{% url 'account:logout' %}">
+            <a class="navbar-item" href="{% url 'account:logout' %}">
               Logout
             </a>
           </div>

@@ -3,13 +3,13 @@
 <aside class="sidebar">
   <div>
     <nav class="menu">
-    {% if app_name != "" %}
+    {% if app_name != "" and app_name != "account" %}
     <div class="menu-category">
       <a href="{% url 'home' %}" class="button is-link is-small" style="display: inherit;">Go back</a>
     </div>
     {% endif %}
     
-    {% if app_name == "" %}
+    {% if app_name == "" or app_name == "account" %}
     <div class="menu-category">
       <header class="category-header">Applications</header>
       <ul class="menu-list">

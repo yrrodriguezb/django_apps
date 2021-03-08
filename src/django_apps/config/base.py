@@ -105,8 +105,18 @@ STATICFILES_DIRS = [
     BASE_DIR / 'apps' / 'static',
 ]
 
-# auth
+# Auth
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'apps.account.authentication.EmailAuthBackend',
+]
 
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = reverse_lazy('account:login')
 LOGOUT_URL = reverse_lazy('account:logout')
+
+# Media files
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media/'

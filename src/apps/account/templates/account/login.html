@@ -14,7 +14,10 @@
     <section class="section">
       <div class="has-text-centered">
         <img src="{% static 'images/logos/django.svg' %}" >
+        <h1 class="title is-4 has-text-white">Log in with your account</h1>
       </div>
+
+      <hr />
 
       <form action="" method="POST">
         {% csrf_token %}
@@ -27,7 +30,7 @@
               name="{{ form.username.name }}"  
               type="text" 
               value="{{ form.username.value|default_if_none:'' }}"
-              placeholder="Username"
+              placeholder="Username or Email"
               required
             />
             <span class="icon is-small is-right">

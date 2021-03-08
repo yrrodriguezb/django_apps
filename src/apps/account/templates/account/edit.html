@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}Edit your account{% endblock %}
+
+{% block content %}
+<h1 class="title is-4">Edit your account</h1>
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="columns is-8">
+    <div class="column">
+      <p class="control">
+        <label class="label">{{ user_form.first_name.label_tag }}</label>
+        <input 
+          type="text" 
+          class="input" 
+          name="{{ user_form.first_name.name }}" 
+          placeholder="Firsr name" 
+          value="{{ user_form.first_name.value|default_if_none:'' }}"  
+        />
+      </p>
+    </div>
+    <div class="column">
+      <p class="control">
+        <label class="label">{{ user_form.last_name.label_tag }}</label>
+        <input 
+          type="text"
+          class="input"
+          name="{{ user_form.last_name.name }}"
+          placeholder="Last name" 
+          value="{{ user_form.last_name.value|default_if_none:'' }}"  
+        />
+      </p>
+    </div>
+  </div>
+  <div class="columns is-8">
+    <div class="column">
+      <p class="control">
+        <label class="label">{{ user_form.email.label_tag }}</label>
+        <input
+          type="email"
+          class="input"
+          name="{{ user_form.email.name }}"
+          placeholder="E-mail"
+          value="{{ user_form.email.value|default_if_none:'' }}"  
+        />
+      </p>
+    </div>
+    <div class="column">
+      <p class="control">
+        <label class="label">{{ profile_form.date_of_birth.label_tag }}</label>
+        <input
+          type="date"
+          class="input"
+          name="{{ form.date_of_birth.name }}"
+          placeholder="E-mail"
+          value="{{ profile_form.date_of_birth.value|default_if_none:'' }}"  
+        />
+      </p>
+    </div>
+  </div>
+  <div class="columns is-8">
+    <div class="column is-6">
+      <p class="control">
+        <label class="label">{{ profile_form.photo.label_tag }}</label>
+        <div class="file has-name is-white">
+          <label class="file-label">
+            <input 
+              id="{{ profile_form.photo.id_for_label }}"
+              class="file-input" 
+              type="file" 
+              name="{{ profile_form.photo.name }}"
+              accept="image/*"
+            />
+            <span class="file-cta">
+              <span class="file-icon">
+                <i class="fas fa-upload"></i>
+              </span>
+              <span class="file-label is-primary">
+                Choose a file…
+              </span>
+            </span>
+            <span class="file-name">
+              File name ...
+            </span>
+          </label>
+        </div>
+      </p>
+    </div>
+  </div>
+
+  {% if modified_profile %}
+  <div class="notification is-primary is-light">
+    Profile was modified successfully.
+  </div>
+  {% endif %}
+
+  <input class="button is-primary" type="submit" value="Save changes">
+
+</form>
+{% endblock %}

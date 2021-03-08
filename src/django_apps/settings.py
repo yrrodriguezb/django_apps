@@ -142,8 +142,19 @@ EMAIL_HOST_USER = environ.get("DJANGO_EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = environ.get("DJANGO_EMAIL_HOST_PASSWORD")
 EMAIL_PORT = '2525'
 
-# auth
+# Auth
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'apps.account.authentication.EmailAuthBackend',
+]
 
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = reverse_lazy('account:login')
 LOGOUT_URL = reverse_lazy('account:logout')
+
+
+# Media file
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media/'

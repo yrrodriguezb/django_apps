@@ -14,9 +14,19 @@
     <section class="section">
       <div class="has-text-centered">
         <img src="{% static 'images/logos/django.svg' %}" >
+        <h1 class="title is-4 has-text-white">Create an account</h1>
       </div>
 
-      <form action="" method="POST">
+      <hr />
+      {% if created_new_user %}
+      <div class="notification is-primary is-light">
+        User was created successfully.
+      </div>
+      <div class="has-text-centered">
+        <a class="button is-white" href="{% url 'account:login' %}">Login</a>
+      </div>
+      {% else %}
+      <form  method="POST">
         {% csrf_token %}
 
         <div class="field">
@@ -29,28 +39,41 @@
               value="{{ form.username.value|default_if_none:'' }}"
               placeholder="Username"
               required
+              maxlength="150"
             />
             <span class="icon is-small is-right">
               <i class="fa fa-user"></i>
             </span>
           </div>
+          {% if form.username.errors %}
+            {% for error in form.username.errors %}
+            <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+          {% else %}
+            <p class="help">{{ form.username.help_text }}</p>
+          {% endif %}
         </div>
 
-        div class="field">
-          <label class="label">{{ form.email.label_tag }}</label>
+        <div class="field">
+          <label class="label">{{ form.first_name.label_tag }}</label>
           <div class="control has-icons-right">
             <input 
               class="input" 
-              name="{{ form.email.name }}"  
-              type="email" 
-              value="{{ form.email.value|default_if_none:'' }}"
-              placeholder="Username"
+              name="{{ form.first_name.name }}"  
+              type="text" 
+              value="{{ form.first_name.value|default_if_none:'' }}"
+              placeholder="First name"
               required
             />
             <span class="icon is-small is-right">
-              <i class="fa fa-email"></i>
+              <i class="fa fa-user"></i>
             </span>
           </div>
+          {% if form.first_name.errors %}
+            {% for error in form.first_name.errors %}
+            <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+          {% endif %}
         </div>
   
         <div class="field">
@@ -67,15 +90,20 @@
               <i class="fa fa-key"></i>
             </span>
           </div>
+          {% if form.password.errors %}
+            {% for error in form.password.errors %}
+            <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+          {% endif %}
         </div>
 
         <div class="field">
-          <label class="label">{{ form.confirm_password.label_tag }}</label>
+          <label class="label">{{ form.password2.label_tag }}</label>
           <div class="control has-icons-right">
             <input 
               class="input" 
               type="password" 
-              name="{{ form.confirm_password.name }}"
+              name="{{ form.password2.name }}"
               placeholder="Confirm password"
               required
             />
@@ -83,13 +111,18 @@
               <i class="fa fa-key"></i>
             </span>
           </div>
+          {% if form.password2.errors %}
+            {% for error in form.password2.errors %}
+            <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+          {% endif %}
         </div>
         
         <div class="has-text-centered">
-          <input type="submit" class="button is-vcentered is-white" value="Sign up">
+          <input type="submit" class="button is-white" value="Sign up">
         </div>
       </form>
-
+      {% endif %}
     </section>
   </div>
 </div>
