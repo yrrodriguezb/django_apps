@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 from os import environ
 from django.urls import reverse_lazy
+from .config.social_auth.base import *
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +29,7 @@ SECRET_KEY = '$ies08%-77x^1sigok&ff$!r==m351)j+er%@etkxp)=01&=x)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ 'yrrodriguezb.com', 'localhost', '127.0.0.1' ]
 
 SITE_ID = 1
 
@@ -42,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.sitemaps',
+    'django_extensions',
+    'social_django',
     'taggit',
     'apps.core',
     'apps.books',
@@ -149,10 +153,12 @@ AUTHENTICATION_BACKENDS = [
     'apps.account.authentication.EmailAuthBackend',
 ]
 
+AUTHENTICATION_BACKENDS += AUTHENTICATION_BACKENDS_SOCIAL_AUTH
+
+
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = reverse_lazy('account:login')
 LOGOUT_URL = reverse_lazy('account:logout')
-
 
 # Media file
 

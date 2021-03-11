@@ -3,7 +3,7 @@ from .base import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ 'yrrodriguezb.com', 'localhost', '127.0.0.1' ]
 
 # Databases
 

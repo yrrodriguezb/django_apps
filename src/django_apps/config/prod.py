@@ -4,7 +4,7 @@ from .base import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', ]
+ALLOWED_HOSTS = [ 'yrrodriguezb.com', ]
 
 # Databases
 

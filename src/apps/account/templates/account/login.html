@@ -61,7 +61,25 @@
       </form>
       
       <div class="has-text-centered">
-        <a href="{% url 'account:password_reset' %}"> Don't you have an account? Sign up now!</a>
+        <a class="has-text-white" href="{% url 'account:password_reset' %}"> Don't you have an account? Sign up now!</a>
+        <a class="button is-facebook is-rounded" href="{% url 'social:begin' 'facebook' %}" >
+          <span class="icon">
+            <i class="fab fa-facebook"></i>
+          </span>
+          <span>Facebook</span>
+        </a>
+        <a class="button is-twitter is-rounded" href="{% url 'social:begin' 'twitter' %}">
+          <span class="icon">
+            <i class="fab fa-twitter"></i>
+          </span>
+          <span>Twitter</span>
+        </a>
+        <a class="button is-google is-rounded" href="{% url 'social:begin' 'google-oauth2' %}">
+          <span class="icon">
+            <i class="fab fa-google"></i>
+          </span>
+          <span>Google</span>
+        </a>
       </div>
     </section>
   </div>

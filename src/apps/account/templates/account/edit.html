@@ -52,9 +52,8 @@
         <input
           type="date"
           class="input"
-          name="{{ form.date_of_birth.name }}"
-          placeholder="E-mail"
-          value="{{ profile_form.date_of_birth.value|default_if_none:'' }}"  
+          name="{{ profile_form.date_of_birth.name }}"
+          value="{{ profile_form.date_of_birth.value|date:'SHORT_DATE_FORMAT' }}"  
         />
       </p>
     </div>
