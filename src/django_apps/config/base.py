@@ -29,10 +29,12 @@ INSTALLED_APPS = [
     'django_extensions',
     'social_django',
     'taggit',
+    'easy_thumbnails',
     'apps.core',
     'apps.books',
     'apps.blog',
     'apps.account',
+    'apps.images',
 ]
 
 MIDDLEWARE = [

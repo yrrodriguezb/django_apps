@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% block title %}{{ image.title }}{% endblock %}
+
+{% block content %}
+<div class="columns">
+  <div class="column is-one-third">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-title">
+          {{ image.title }}
+        </div>
+        <div class="card-header-icon">
+          {% with total_likes=image.users_like.count %}{{ total_likes }} like{{ total_likes|pluralize }}<i class="fa fa-thumbs-up" style="margin-left: 5px;"></i>{% endwith %}
+        </div>
+      </div>
+      <div class="card-image">
+        <figure class="image is-4by3">
+          <a href="{{ image.image.url }}">
+            <img src="{% thumbnail image.image 300x0 %}" class="image-detail">
+          </a>
+        </figure>
+      </div>
+      <div class="card-content">
+        <div class="content">
+          {{ image.description|linebreaks }}
+          <br>
+          <time>Date publicated: {{ image.created|date:"d/m/y" }}</time>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+{% endblock %}

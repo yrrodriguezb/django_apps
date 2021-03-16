@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Bookmark an image{% endblock %}
+
+{% block content %}
+<h1 class="title">Bookmark an image</h1>
+
+<div class="columns is-6">
+  <div class="column">
+    <form method="post">
+      {% csrf_token %}
+      <div class="column">
+        <p class="control">
+          <label class="label">{{ form.title.label_tag }}</label>
+          <input 
+            type="text" 
+            class="input" 
+            name="{{ user_form.title.name }}" 
+            placeholder="Title" 
+            value="{{ user_form.title.value|default_if_none:'' }}"  
+            required
+          />
+        </p>
+      </div>
+      <div class="column">
+        <label class="label">{{ form.description.label_tag }}</label>
+        <p class="control">
+          <textarea class="textarea"></textarea>
+        </p>
+      </div>
+      <div class="column">
+        <input type="submit" class="button is-primary" value="Bookmark it!">
+      </div>
+    </form>
+  </div>
+  <div class="column">
+    <figure class="image image is-1by1">
+      <img src="{{ request.GET.url }}">
+    </figure>
+  </div>
+</div>
+
+<!-- https://127.0.0.1:8000/images/create/?title=good girls&url=https://static.tvmaze.com/uploads/images/medium_portrait/297/744253.jpg -->
+{% endblock %}
