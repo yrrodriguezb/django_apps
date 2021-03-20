@@ -7,38 +7,92 @@
 
 <div class="columns is-6">
   <div class="column">
-    <form method="post">
+    <form id="form_image" method="post">
       {% csrf_token %}
       <div class="column">
-        <p class="control">
-          <label class="label">{{ form.title.label_tag }}</label>
-          <input 
-            type="text" 
-            class="input" 
-            name="{{ user_form.title.name }}" 
-            placeholder="Title" 
-            value="{{ user_form.title.value|default_if_none:'' }}"  
-            required
-          />
-        </p>
+        <div class="field">
+          <p class="control">
+            <label class="label">{{ form.url.label_tag }}</label>
+            <input 
+              type="text" 
+              class="input" 
+              name="{{ form.url.name }}" 
+              placeholder="URL" 
+              value="{{ form.url.value|default_if_none:'' }}"  
+              required
+            />
+          </p>
+          {% if form.url.errors %}
+            {% for error in form.url.errors %}
+            <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+          {% endif %}
+        </div>
+        <div class="field">
+          <input id="btnPreview" type="submit" class="button is-primary" value="Preview" >
+        </div>
       </div>
       <div class="column">
+        <div class="field">
+          <p class="control">
+            <label class="label">{{ form.title.label_tag }}</label>
+            <input 
+              type="text" 
+              class="input" 
+              name="{{ form.title.name }}" 
+              placeholder="Title" 
+              value="{{ form.title.value|default_if_none:'' }}"  
+              required
+            />
+          </p>
+          {% if form.title.errors %}
+            {% for error in form.title.errors %}
+            <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+      <div class="column">
+       <div class="field">
         <label class="label">{{ form.description.label_tag }}</label>
         <p class="control">
-          <textarea class="textarea"></textarea>
+          <textarea class="textarea">{{ form.description.value|default_if_none:'' }}</textarea>
         </p>
+       </div>
       </div>
       <div class="column">
-        <input type="submit" class="button is-primary" value="Bookmark it!">
+        <input id="btnSave" type="submit" class="button is-primary" value="Bookmark it!">
       </div>
     </form>
   </div>
+  {% if request.GET.url %}
   <div class="column">
     <figure class="image image is-1by1">
       <img src="{{ request.GET.url }}">
     </figure>
   </div>
+  {% endif %}
 </div>
+{% endblock %}
 
-<!-- https://127.0.0.1:8000/images/create/?title=good girls&url=https://static.tvmaze.com/uploads/images/medium_portrait/297/744253.jpg -->
+
+{% block extrajs %}
+<script type="text/javascript">
+  var btnPreview = document.getElementById("btnPreview");
+  var btnSave = document.getElementById("btnSave");
+  var form = document.getElementById("form_image");
+
+  var preview = function preview() {
+    form.method = "GET";
+    form.submit();
+  }
+
+  var save = function save() {
+    form.method = "POST";
+    form.submit();
+  }
+
+  btnPreview.onclick = preview;
+
+</script>
 {% endblock %}

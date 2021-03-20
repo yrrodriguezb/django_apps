@@ -2,10 +2,10 @@
   <div class="level-left">
     <div class="level-item">
       {% if page.has_previous %}
-      <a class="pagination-previous" href="?page={{ page.previous_page_number }}&query={{query}}">Previous</a>
+      <a class="pagination-previous button is-white" href="?page={{ page.previous_page_number }}&query={{query}}">Previous</a>
       {% endif %}
       {% if page.has_next %}
-      <a class="pagination-next is-white" href="?page={{ page.next_page_number }}&query={{query}}">Next page</a>
+      <a class="pagination-next button is-primary" href="?page={{ page.next_page_number }}&query={{query}}">Next page</a>
       {% endif %}
     </div>
   </div>

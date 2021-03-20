@@ -37,7 +37,7 @@
       <ul class="menu-list">
         <li><a href="{% url 'blog:post-list' %}">List</a></li>
         <li><a href="{% url 'blog:post_feed' %}" target="_blank">Subscribe to my RSS feed</a></li>
-        <li><a href="{% url 'images:create' %}">Images</a></li>
+        <li><a href="{% url 'images:list' %}">Images</a></li>
       </ul>
     </div>
       {% show_latest_posts 3 %}
@@ -46,6 +46,7 @@
     <div class="menu-category">
       <header class="category-header">Images</header>
       <ul class="menu-list">
+        <li><a href="{% url 'images:list' %}">List</a></li>
         <li><a href="{% url 'images:create' %}">Create</a></li>
       </ul>
     </div>

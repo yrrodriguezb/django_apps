@@ -12,13 +12,15 @@
           {{ image.title }}
         </div>
         <div class="card-header-icon">
-          {% with total_likes=image.users_like.count %}{{ total_likes }} like{{ total_likes|pluralize }}<i class="fa fa-thumbs-up" style="margin-left: 5px;"></i>{% endwith %}
+          {% with total_likes=image.users_like.count %} <span id="total-likes" style="margin-right: 4px;">{{ total_likes }} </span> like{{ total_likes|pluralize }}
+          <i id="btnLike" data-like="{% if like_image_user %}1{% else %}0{% endif %}" onclick="like()" class="fa fa-heart" style="margin-left: 5px; {% if like_image_user %}color: red;{% endif %}"></i>
+          {% endwith %}
         </div>
       </div>
       <div class="card-image">
         <figure class="image is-4by3">
           <a href="{{ image.image.url }}">
-            <img src="{% thumbnail image.image 300x0 %}" class="image-detail">
+            <img src="{% thumbnail image.image 300x0 %}">
           </a>
         </figure>
       </div>
@@ -33,4 +35,79 @@
     
   </div>
 </div>
+{% endblock %}
+
+{% block extrajs %}
+<script type="text/javascript">
+
+  function getCookie(name) {
+    var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    return v ? v[2] : null;
+  }
+
+  function setCookie(name, value, path, days) {
+    var d = new Date;
+    d.setTime(d.getTime() + 24*60*60*1000*days);
+    document.cookie = name + "=" + value + ";path="+ path + ";expires=" + d.toGMTString();
+  }
+
+  function csrfSafeMethod(method) {
+    return (/^(GET|HEAD|OPTIONS|TRACE|POST)$/.test(method));
+  }
+
+  async function _fetch(url, options) {
+    if (!csrfSafeMethod(options.method || 'POST'))
+      throw new Error("Method not allowed");
+
+    options.fn = options.fn || {};
+    options.fn.Ok =  options.fn.Ok || function (data) { }, 
+    options.fn.Error = options.fn.Error || function (err) { }
+
+    var response = await fetch(url, options);
+    var data = await response.json();
+
+    if (response.ok)  
+      options.fn.Ok(data)
+    else
+      options.fn.Error(data)
+  }
+
+  async function like() {
+
+    var btnLike = document.querySelector("[id=btnLike]");
+    var data_like =  parseInt(btnLike.getAttribute('data-like'));
+    var action = data_like > 0 ? "unlike" : "like";
+
+    await _fetch('{% url "images:like" %}', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json; charset=UTF-8',
+        'X-CSRFToken': getCookie('csrftoken')
+      },
+      body: JSON.stringify({ id: '{{ image.id }}', action: action }),
+      fn: {
+        Ok: function(d) {
+          console.log(d);
+          if (d.code === 200){
+            if (action == "unlike"){
+              btnLike.style.color = "";
+              btnLike.setAttribute('data-like', "0");
+            }
+            else {
+              btnLike.setAttribute('data-like', "1");
+              btnLike.style.color = "red";
+            }
+
+            document.querySelector("[id=total-likes]").innerHTML = d.likes;
+          }          
+        },
+        Error: function(err) {
+          console.error(err);
+        }
+      }
+    });
+  }
+
+</script>
 {% endblock %}

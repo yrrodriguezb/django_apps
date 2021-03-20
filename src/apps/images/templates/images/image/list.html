@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Bookmark an image{% endblock %}
+
+{% block content %}
+<h1 class="title">Bookmark an image</h1>
+
+<div class="content">
+  {% for image in images %}
+    {% with TAG_OPEN=False %}
+    {% if forloop.counter == 1 or forloop.counter|divisibleby:"6" %}
+    <div class="columns is-mobile is-centered">
+    {% endif %}
+      <div class="column">
+        <figure class="image is-128x128">
+          <a href="{% url 'images:detail' image.id image.slug  %}">
+            <img src="{{ image.image.url }}">
+          </a>
+        </figure>
+      </div>
+    {% if  forloop.counter|divisibleby:"5" %}
+    </div>
+    <br><br>
+    {% endif %}
+    {% endwith %}
+  {% endfor %}
+</div>
+<br><br>
+
+{% include "includes/components/paginator.html" with page=page_obj query=request.GET.query %}
+
+{% endblock %}
