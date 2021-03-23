@@ -1,0 +1,21 @@
+{% load thumbnail %}
+
+{% for image in images %}
+{% if forloop.counter == 1 or forloop.counter|divisibleby:"5" %}
+<div class="columns is-mobile is-centered">
+{% endif %}
+  <div class="column">
+    <figure class="image">
+      <a href="{{ image.get_absolute_url }}">
+        {% thumbnail image.image 300x300 crop="smart" as im %}
+        <a href="{{ image.get_absolute_url }}">
+          <img src="{{ im.url }}">
+        </a>
+      </a>
+    </figure>
+  </div>
+{% if  forloop.counter|divisibleby:"4" %}
+</div>
+<br><br>
+{% endif %}
+{% endfor %}

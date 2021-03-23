@@ -5,28 +5,87 @@
 {% block content %}
 <h1 class="title">Bookmark an image</h1>
 
-<div class="content">
-  {% for image in images %}
-    {% with TAG_OPEN=False %}
-    {% if forloop.counter == 1 or forloop.counter|divisibleby:"6" %}
-    <div class="columns is-mobile is-centered">
-    {% endif %}
-      <div class="column">
-        <figure class="image is-128x128">
-          <a href="{% url 'images:detail' image.id image.slug  %}">
-            <img src="{{ image.image.url }}">
-          </a>
-        </figure>
-      </div>
-    {% if  forloop.counter|divisibleby:"5" %}
-    </div>
-    <br><br>
-    {% endif %}
-    {% endwith %}
-  {% endfor %}
+<div id="content-images" class="content">
+  {% include "images/image/list_ajax.html" %}
 </div>
-<br><br>
+{% endblock %}
 
-{% include "includes/components/paginator.html" with page=page_obj query=request.GET.query %}
+{% block extrajs %}
+<script type="text/javascript">
 
+  var page = 1;
+  var empty_page = false;
+  var block_request = false;
+  var last_known_scroll_position = 0;
+  var ticking = false;
+  var num_pages = parseInt('{{ images.paginator.num_pages }}');
+
+  function getCookie(name) {
+    var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    return v ? v[2] : null;
+  }
+
+  function csrfSafeMethod(method) {
+    return (/^(GET|HEAD|OPTIONS|TRACE|POST)$/.test(method));
+  }
+
+  async function getImages(scroll_pos) {
+    var margin = document.documentElement.offsetHeight - window.innerHeight - 200;
+
+    if(window.scrollY > margin && empty_page == false && block_request == false) {
+      block_request = true;
+      page += 1;
+
+      if (page > num_pages) return;
+
+      var url = new URL('{% url "images:list" %}?page='+ page, location.origin)
+
+      await _fetch(url, { 
+        method: 'GET',
+        responseText: true,
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest'
+        },
+        fn: {
+          Ok: function (html) {
+            document.getElementById("content-images").innerHTML += html;
+            block_request = false;
+          },
+          Error: function (err) {
+            console.error(err);
+          }
+        }
+      });
+    }
+  }
+
+  async function _fetch(url, options) {
+    if (!csrfSafeMethod(options.method || 'POST'))
+      throw new Error("Method not allowed");
+
+    options.fn = options.fn || {};
+    options.fn.Ok =  options.fn.Ok || function (data) { }, 
+    options.fn.Error = options.fn.Error || function (err) { }
+
+    var response = await fetch(url, options);
+
+    var data = await (options.responseText ? response.text() : response.json());
+
+    if (response.ok)  
+      options.fn.Ok(data)
+    else
+      options.fn.Error(data)
+  }
+
+  window.addEventListener('scroll', function(e) {
+    last_known_scroll_position = window.scrollY;
+    if (!ticking) {
+      window.requestAnimationFrame(function() {
+        getImages(last_known_scroll_position);
+        ticking = false;
+      });
+    }
+    ticking = true;
+  });
+</script>
 {% endblock %}

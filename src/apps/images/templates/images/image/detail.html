@@ -12,8 +12,15 @@
           {{ image.title }}
         </div>
         <div class="card-header-icon">
-          {% with total_likes=image.users_like.count %} <span id="total-likes" style="margin-right: 4px;">{{ total_likes }} </span> like{{ total_likes|pluralize }}
-          <i id="btnLike" data-like="{% if like_image_user %}1{% else %}0{% endif %}" onclick="like()" class="fa fa-heart" style="margin-left: 5px; {% if like_image_user %}color: red;{% endif %}"></i>
+          {% with total_likes=image.users_like.count %}<span id="total-likes" style="margin-right: 4px;">{{ total_likes }} </span> like{{ total_likes|pluralize }}
+          &nbsp;
+          <i 
+            id="btnLike" 
+            data-like="{% if like_image_user %}1{% else %}0{% endif %}" 
+            onclick="like()" 
+            class="fa fa-heart" 
+            {% if like_image_user %} style="margin-left: 5px; color: red;"{% endif %}
+          ></i>
           {% endwith %}
         </div>
       </div>
@@ -83,7 +90,8 @@
       headers: {
         'Accept': 'application/json',
         'Content-type': 'application/json; charset=UTF-8',
-        'X-CSRFToken': getCookie('csrftoken')
+        'X-CSRFToken': getCookie('csrftoken'),
+        'X-Requested-With': 'XMLHttpRequest'
       },
       body: JSON.stringify({ id: '{{ image.id }}', action: action }),
       fn: {
