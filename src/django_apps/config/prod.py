@@ -4,6 +4,8 @@ from .base import *
 
 DEBUG = False
 
+THUMBNAIL_DEBUG = DEBUG
+
 ALLOWED_HOSTS = [ 'yrrodriguezb.com', ]
 
 # Databases

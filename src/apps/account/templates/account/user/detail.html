@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% load static %}
+{% block title %}{{ user.get_full_name }}{% endblock %}
+{% block scriptjs %}
+<script src="{% static 'js/page.js' %}"></script>
+{% endblock %}
+{% block content %}
+
+<div class="level">
+  <div class="level-left">
+    <h1 class="title">{{ user.get_full_name }}</h1>
+  </div>
+  <div class="level-right">
+    <div class="level-item">
+      {% with total_followers=user.followers.count %}
+      <span class="button is-rounded">
+        <span id="total-followers">{{ total_followers }}</span>
+        <span>&nbsp;</span>
+        follower{{ total_followers|pluralize }}
+      </span>
+      <span>&nbsp;</span>
+      <span 
+        id="btnFollow"
+        class="button is-primary is-rounded" 
+        data-id="{{ user.id }}" 
+        data-action="{% if request.user in user.followers.all %}un{% endif %}follow">
+      {% if request.user not in user.followers.all %}Follow{% else %}Unfollow{% endif %}
+      </span>
+    </div>
+  </div>
+</div>
+
+{% if user.profile.photo %}
+<div class="profile-info">
+  <img src="{% thumbnail user.profile.photo 180x180 %}" class="user-detail">
+</div>
+{% endif %}
+
+<div id="image-list" class="image-container">
+{% include "images/image/list_ajax.html" with images=user.images_created.all %}
+</div>
+{% endwith %}
+{% endblock %}
+
+{% block extrajs %}
+<script type="text/javascript">
+
+  var btnFollow = document.getElementById("btnFollow");
+  var totalFollowers = document.getElementById("total-followers");
+
+  async function follow() {
+    var action = btnFollow.getAttribute("data-action");
+    var id = btnFollow.getAttribute("data-id");
+    var url = new URL('{% url "account:user_follow" %}', location.origin);
+
+    var options = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json; charset=UTF-8',
+        'X-CSRFToken': getCookie('csrftoken'),
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      body: JSON.stringify({ id, action }),
+      fn: {
+        Ok: function (data) {
+          var previous_action = action;
+
+          btnFollow.setAttribute('data-action', previous_action == 'follow' ? 'unfollow' : 'follow');
+          btnFollow.innerText = previous_action == 'follow' ? 'Unfollow' : 'Follow';
+          
+          var previous_followers = parseInt(totalFollowers.innerText);
+
+          totalFollowers.innerText = previous_action == 'follow' 
+            ? previous_followers + 1 
+            : previous_followers - 1;
+        },
+        Error: function (err) {
+          console.error(err);
+        }
+      }
+    };
+
+    await _fetch(url, options);
+  }
+
+  btnFollow.onclick = follow;
+
+</script>
+{% endblock %}

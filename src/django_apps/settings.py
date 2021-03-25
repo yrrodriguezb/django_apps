@@ -14,6 +14,7 @@ from pathlib import Path
 from os import environ
 from django.urls import reverse_lazy
 from .config.social_auth.base import *
+from .config.user.base import *
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -28,6 +29,8 @@ SECRET_KEY = '$ies08%-77x^1sigok&ff$!r==m351)j+er%@etkxp)=01&=x)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+THUMBNAIL_DEBUG = DEBUG
 
 ALLOWED_HOSTS = [ 'yrrodriguezb.com', 'localhost', '127.0.0.1' ]
 
@@ -78,6 +81,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.media',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'apps.core.context_processors.app_name',

@@ -1,7 +1,12 @@
 {% extends "base.html" %}
+{% load static %}
 {% load thumbnail %}
 
 {% block title %}{{ image.title }}{% endblock %}
+
+{% block scriptjs %}
+<script src="{% static 'js/page.js' %}"></script>
+{% endblock %}
 
 {% block content %}
 <div class="columns">
@@ -46,41 +51,7 @@
 
 {% block extrajs %}
 <script type="text/javascript">
-
-  function getCookie(name) {
-    var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-    return v ? v[2] : null;
-  }
-
-  function setCookie(name, value, path, days) {
-    var d = new Date;
-    d.setTime(d.getTime() + 24*60*60*1000*days);
-    document.cookie = name + "=" + value + ";path="+ path + ";expires=" + d.toGMTString();
-  }
-
-  function csrfSafeMethod(method) {
-    return (/^(GET|HEAD|OPTIONS|TRACE|POST)$/.test(method));
-  }
-
-  async function _fetch(url, options) {
-    if (!csrfSafeMethod(options.method || 'POST'))
-      throw new Error("Method not allowed");
-
-    options.fn = options.fn || {};
-    options.fn.Ok =  options.fn.Ok || function (data) { }, 
-    options.fn.Error = options.fn.Error || function (err) { }
-
-    var response = await fetch(url, options);
-    var data = await response.json();
-
-    if (response.ok)  
-      options.fn.Ok(data)
-    else
-      options.fn.Error(data)
-  }
-
   async function like() {
-
     var btnLike = document.querySelector("[id=btnLike]");
     var data_like =  parseInt(btnLike.getAttribute('data-like'));
     var action = data_like > 0 ? "unlike" : "like";
@@ -116,6 +87,5 @@
       }
     });
   }
-
 </script>
 {% endblock %}

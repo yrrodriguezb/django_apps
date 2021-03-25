@@ -1,6 +1,10 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}Bookmark an image{% endblock %}
+
+{% block scriptjs %}
+<script src="{% static 'js/page.js' %}"></script>
+{% endblock %}
 
 {% block content %}
 <h1 class="title">Bookmark an image</h1>
@@ -19,15 +23,6 @@
   var last_known_scroll_position = 0;
   var ticking = false;
   var num_pages = parseInt('{{ images.paginator.num_pages }}');
-
-  function getCookie(name) {
-    var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-    return v ? v[2] : null;
-  }
-
-  function csrfSafeMethod(method) {
-    return (/^(GET|HEAD|OPTIONS|TRACE|POST)$/.test(method));
-  }
 
   async function getImages(scroll_pos) {
     var margin = document.documentElement.offsetHeight - window.innerHeight - 200;
@@ -57,24 +52,6 @@
         }
       });
     }
-  }
-
-  async function _fetch(url, options) {
-    if (!csrfSafeMethod(options.method || 'POST'))
-      throw new Error("Method not allowed");
-
-    options.fn = options.fn || {};
-    options.fn.Ok =  options.fn.Ok || function (data) { }, 
-    options.fn.Error = options.fn.Error || function (err) { }
-
-    var response = await fetch(url, options);
-
-    var data = await (options.responseText ? response.text() : response.json());
-
-    if (response.ok)  
-      options.fn.Ok(data)
-    else
-      options.fn.Error(data)
   }
 
   window.addEventListener('scroll', function(e) {
