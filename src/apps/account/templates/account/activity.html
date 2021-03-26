@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="title">What's happening</h2>
+
+<div class="content">
+{% for action in actions %}
+  {% include "actions/action/detail.html" %}
+{% endfor %}
+</div>
+{% endblock %}

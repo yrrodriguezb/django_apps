@@ -4,6 +4,7 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 from django.views.decorators.http import require_POST
+from apps.actions.utils import create_action
 from common.decorators.http import ajax_required
 from .models import Image
 from .forms import ImageCreateForm
@@ -46,6 +47,7 @@ def image_create(request):
             new_item = form.save(commit=False)
             new_item.user = request.user
             new_item.save()
+            create_action(request.user, 'bookmarked image', new_item)
             return redirect(new_item.get_absolute_url())
     else:
         # build form with data provided by the bookmarklet via GET
@@ -72,6 +74,7 @@ def image_like(request):
             image = Image.objects.get(id=image_id)
             if action == 'like':
                 image.users_like.add(request.user)
+                create_action(request.user, 'likes', image)
             elif action == 'unlike':
                 image.users_like.remove(request.user)
             likes = image.users_like.count()

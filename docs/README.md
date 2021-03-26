@@ -40,3 +40,14 @@ Proyecto de ejemplo para profundizar en la creación de aplicaciónes web con **
 2. Signup
 
     ![](./images/signup.png)
+
+
+### Flujo de actividades de usuario
+
+1. Activity
+
+    ![](./images/UserActivity.png)
+
+2. Follow
+   
+    ![](./images/follow.png)

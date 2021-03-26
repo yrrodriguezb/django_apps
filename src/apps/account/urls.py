@@ -12,13 +12,15 @@ from .views import (
     edit,
     user_list,
     user_detail,
-    user_follow
+    user_follow,
+    dashboard
 )
 
 
 app_name = 'account'
 
 urlpatterns = [
+    path('', dashboard, name='dashboard'),
     path('login/', LoginAppView.as_view(), name='login'),
     path('logout/', LogoutAppView.as_view(), name='logout'),
     path('signup/', register, name='signup'),
